@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from django.conf import settings
+
 from health_check.storage.backends import StorageHealthCheck
 
 
@@ -17,7 +19,7 @@ class S3BotoStorageHealthCheck(StorageHealthCheck):
     """
 
     logger = logging.getLogger(__name__)
-    storage = 'storages.backends.s3boto.S3BotoStorage'
+    storage = settings.DEFAULT_FILE_STORAGE or 'storages.backends.s3boto.S3BotoStorage'
 
     def check_delete(self, file_name):
         storage = self.get_storage()
